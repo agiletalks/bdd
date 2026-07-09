@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDD AI 協作互動工作區</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar Overlay Backdrop -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="top-header">
+      <button id="menu-toggle" class="menu-toggle-btn" title="打開功能選單">☰</button>
+      <span class="top-brand-title">BDD Workbench</span>
+    </header>
+
+    <!-- Sliding Sidebar Drawer -->
+    <aside class="sidebar">
+      <div class="brand-section">
+        <span class="sidebar-brand-title">BDD Workbench</span>
+        <button id="menu-close" class="close-menu-btn" title="關閉功能選單">✕</button>
+      </div>
+      
+      <nav class="nav-menu">
+        <div class="nav-section-title">觀念與教學</div>
+        <div class="nav-item active" data-tab="tutorial">
+          <span>BDD 觀念教學</span>
+        </div>
+        
+        <div class="nav-section-title">BDD AI 協作工作區</div>
+        
+        <div class="nav-item" data-tab="prompt0">
+          <span>階段 0：需求訪談</span>
+        </div>
+        
+        <div class="nav-item" data-tab="prompt1">
+          <span>階段 1：功能與故事細拆</span>
+        </div>
+        
+        <div class="nav-item" data-tab="prompt2">
+          <span>階段 2：測試案例展開</span>
+        </div>
+        
+        <div class="nav-item" data-tab="prompt3">
+          <span>階段 3：GWT 規格化</span>
+        </div>
+        
+        <div class="nav-item" data-tab="prompt4">
+          <span>階段 4：Playwright 代碼生成</span>
+        </div>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <span>BDD AI Collaboration v1.2</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Panels -->
+    <main class="main-content">
+      
+      <!-- Tutorial Tab Panel -->
+      <section class="tab-panel active" id="tutorial-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>BDD 需求結構與階層關係教學</h2>
+            <p>理解 Feature ── User Story ── Scenario ── Test Case ── GWT 的層次關係</p>
+          </div>
+        </div>
+        <div class="tutorial-container" id="tutorial-content">
+          <div class="tutorial-intro">
+            <p>在 BDD 與敏捷開發流程中，需求是從<strong>「大且抽象的系統功能」</strong>逐步細化為與 AI 協作的<strong>「小且具體的可執行規格」</strong>。以下是這五個需求層級的結構與階層關係：</p>
+          </div>
+
+          <div class="glass-card" style="margin-bottom: 24px;">
+            <h3 style="margin-bottom: 12px; font-size: 15px; font-weight: 600;">需求演進關係圖</h3>
+            <div class="mermaid" style="text-align: center;">
+              graph TD
+                  Feature["1. Feature 功能特性 (系統層級模組)"] 
+                  Feature -->|包含多個| US["2. User Story 使用者故事 (使用者價值)"]
+                  US -->|拆解出多個| Scenario["3. Scenario 業務情境 (完整流程路徑)"]
+                  Scenario -->|展開成多個| TC["4. Test Case 測試案例 (表格化條件)"]
+                  TC -->|撰寫成| GWT["5. Given-When-Then (規格化行為步驟)"]
+                  GWT -->|自動翻譯為| Playwright["6. Playwright Code (自動化測試腳本)"]
+                  
+                  style Feature fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+                  style US fill:#e0fdf4,stroke:#0d9488,stroke-width:2px
+                  style Scenario fill:#fffbeb,stroke:#d97706,stroke-width:2px
+                  style TC fill:#faf5ff,stroke:#7c3aed,stroke-width:2px
+                  style GWT fill:#fff1f2,stroke:#e11d48,stroke-width:2px
+                  style Playwright fill:#f1f5f9,stroke:#475569,stroke-width:2px
+            </div>
+          </div>
+
+          <div class="tutorial-steps">
+            <!-- Step 1 -->
+            <div class="t-step-card border-cyan">
+              <div class="t-step-num bg-cyan">1</div>
+              <div class="t-step-content">
+                <h3>Feature 功能特性</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>系統層面 (What)</span>
+                  <span><strong>產出角色：</strong>Product Owner (PO) / 系統分析 (SA)</span>
+                </div>
+                <p>系統要提供的一個功能模組或大型服務項目（通常是系統名稱或模組名稱）。</p>
+                <div class="t-step-example">
+                  <strong>典型範例：</strong>線上非約定轉帳
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="t-step-card border-green">
+              <div class="t-step-num bg-green">2</div>
+              <div class="t-step-content">
+                <h3>User Story 使用者故事</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>使用者價值面 (Who & Why)</span>
+                  <span><strong>產出角色：</strong>PO / 業務分析 (BA)</span>
+                </div>
+                <p>從特定使用者角色的角度，描述他希望在此功能中完成什麼事，以及這個動作帶給他的業務價值。</p>
+                <div class="t-step-format">
+                  <strong>標準格式：</strong>身為 [使用角色]，我想要 [進行何種操作]，以便於 [達成何種商業價值]
+                </div>
+                <div class="t-step-example">
+                  <strong>故事範例：</strong>身為一個 <strong>行動銀行 App 用戶</strong>，我想要 <strong>在線上轉帳給朋友</strong>，以便於 <strong>即時處理資金需求</strong>。
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="t-step-card border-orange">
+              <div class="t-step-num bg-orange">3</div>
+              <div class="t-step-content">
+                <h3>Scenario 業務情境</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>業務流程路徑 (Which Flow)</span>
+                  <span><strong>產出角色：</strong>SA / BA / 測試人員 (QA)</span>
+                </div>
+                <p>為了滿足同一個 User Story，在不同分支、條件下的完整業務流程路徑。必須是一個端到端 (End-to-End) 的完整情境。</p>
+                <div class="t-step-example">
+                  <strong>情境範例：</strong>
+                  <ul>
+                    <li><strong>情境 A：</strong>帳戶餘額充足，轉帳成功 (正常路徑)</li>
+                    <li><strong>情境 B：</strong>轉帳金額超過單筆限額，轉帳失敗 (業務限制)</li>
+                    <li><strong>情境 C：</strong>收款銀行系統逾時，轉帳失敗 (例外路徑)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="t-step-card border-purple">
+              <div class="t-step-num bg-purple">4</div>
+              <div class="t-step-content">
+                <h3>Test Case 測試案例/條件</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>測試與防呆面 (How to verify)</span>
+                  <span><strong>產出角色：</strong>QA / 測試分析師</span>
+                </div>
+                <p>針對每個 Scenario 下，去驗證系統輸入、極端值、防呆條件的具體可驗證條件。</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>表格化測試案例範例（以情境 B「超過單筆限額」為例）：</strong>
+                  <table class="tutorial-table" style="margin-top: 8px; font-size: 12.5px; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th>Feature ID</th>
+                        <th>User Story ID</th>
+                        <th>Scenario ID</th>
+                        <th>Test Case ID</th>
+                        <th>Test Case 名稱</th>
+                        <th>測試目的</th>
+                        <th>測試類型</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>F01 (轉帳)</td>
+                        <td>US01 (線上轉帳)</td>
+                        <td>S02 (超過限額)</td>
+                        <td>TC01-01</td>
+                        <td>轉帳金額等於單筆限額</td>
+                        <td>驗證單筆最高限額邊界值是否可正常扣款與轉帳</td>
+                        <td>邊界案例</td>
+                      </tr>
+                      <tr>
+                        <td>F01 (轉帳)</td>
+                        <td>US01 (線上轉帳)</td>
+                        <td>S02 (超過限額)</td>
+                        <td>TC01-02</td>
+                        <td>轉帳金額大於單筆限額</td>
+                        <td>驗證金額超過單筆限額時系統應成功攔截並報錯</td>
+                        <td>例外案例</td>
+                      </tr>
+                      <tr>
+                        <td>F01 (轉帳)</td>
+                        <td>US01 (線上轉帳)</td>
+                        <td>S02 (超過限額)</td>
+                        <td>TC01-03</td>
+                        <td>轉帳金額輸入負數</td>
+                        <td>防呆驗證，確保轉帳金額輸入負數時系統無法提交</td>
+                        <td>欄位驗證</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="t-step-card border-rose">
+              <div class="t-step-num bg-rose">5</div>
+              <div class="t-step-content">
+                <h3>Given - When - Then 行為規格步驟</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>精確行為規格 (Executable Spec)</span>
+                  <span><strong>產出角色：</strong>BA / QA / 開發團隊 (Dev)</span>
+                </div>
+                <p>將測試案例用無歧義的結構化語言（Gherkin 語法）撰寫成可被開發與自動化測試執行的行為規格。</p>
+                <div class="t-step-format">
+                  <strong>標準結構：</strong><br>
+                  <strong>Given：</strong>前提條件（角色身分、帳戶餘額、頁面狀態）<br>
+                  <strong>When：</strong>觸發動作（使用者輸入、點擊按鈕）<br>
+                  <strong>Then：</strong>預期結果（畫面跳轉、錯誤提示、扣款狀態）
+                </div>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>表格化 Given-When-Then 範例（對應上述 TC01-02 測試案例）：</strong>
+                  <table class="tutorial-table" style="margin-top: 8px; font-size: 12.5px; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th style="width: 18%;">對應 Test Case</th>
+                        <th style="width: 25%;">Given 前提條件</th>
+                        <th style="width: 25%;">When 觸發動作</th>
+                        <th style="width: 25%;">Then 預期結果</th>
+                        <th>Expected Value 預期數值/狀態</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>TC01-02</strong><br>(轉帳金額大於單筆限額)</td>
+                        <td>
+                          1. 用戶登入成功<br>
+                          2. 帳戶可用餘額有 $100,000<br>
+                          3. 系統單筆轉帳上限為 $50,000
+                        </td>
+                        <td>
+                          1. 在轉帳金額輸入 $60,000<br>
+                          2. 點擊「確認轉帳」按鈕
+                        </td>
+                        <td>
+                          1. 系統阻擋交易送出<br>
+                          2. 頁面不進行跳轉<br>
+                          3. 轉帳金額欄位下方顯示紅字錯誤提示
+                        </td>
+                        <td>
+                          錯誤提示文字為：<br>
+                          <code>轉帳金額已超過單筆限額 $50,000 元</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="t-step-card border-slate">
+              <div class="t-step-num bg-slate">6</div>
+              <div class="t-step-content">
+                <h3>Playwright Automated Code 自動化測試腳本</h3>
+                <div class="t-step-meta">
+                  <span><strong>視角：</strong>測試代碼與執行 (E2E Test)</span>
+                  <span><strong>產出角色：</strong>Dev / QA 自動化測試工程師</span>
+                </div>
+                <p>將 Given-When-Then 表格中的語意化動作與預期值直接轉化為可由瀏覽器自動執行與驗證的程式碼。使專案能夠一鍵自動回歸，確保後續功能迭代時不影響既有業務邏輯。</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>Playwright 自動化測試代碼範例（對應上述 TC01-02 測試條件）：</strong>
+                  <pre style="background: #f8fafc; border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-family: 'Consolas', monospace; font-size: 12px; margin-top: 8px; color: #334155; line-height: 1.5; text-align: left;">
+import { test, expect } from '@playwright/test';
+
+test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }) => {
+  // Given: 用戶登入成功，且帳戶可用餘額有 $100,000，單筆限額為 $50,000
+  await page.goto('/login');
+  await page.fill('#username', 'testuser');
+  await page.click('#login-submit-btn');
+  
+  // When: 在轉帳金額輸入 $60,000，並點擊「確認轉帳」按鈕
+  await page.fill('#transfer-amount', '60000');
+  await page.click('#confirm-transfer-btn');
+  
+  // Then: 系統阻擋交易送出，轉帳金額欄位下方顯示錯誤提示
+  const errorAlert = page.locator('.error-message');
+  await expect(errorAlert).toBeVisible();
+  await expect(errorAlert).toHaveText('轉帳金額已超過單筆限額 $50,000 元');
+});</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hierarchy Table -->
+          <div class="glass-card" style="margin-top: 24px; margin-bottom: 24px;">
+            <h3 style="margin-bottom: 16px; font-size: 15px; font-weight: 600;">各階層結構對照表</h3>
+            <table class="tutorial-table">
+              <thead>
+                <tr>
+                  <th>階層</th>
+                  <th>名稱</th>
+                  <th>關注焦點</th>
+                  <th>典型內容範例</th>
+                  <th>負責角色</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Level 1</td>
+                  <td><strong>Feature</strong></td>
+                  <td>系統有什麼功能？</td>
+                  <td><code>線上非約定轉帳</code></td>
+                  <td>PO / SA</td>
+                </tr>
+                <tr>
+                  <td>Level 2</td>
+                  <td><strong>User Story</strong></td>
+                  <td>誰？因為什麼價值？要用什麼功能？</td>
+                  <td>身為行動用戶，我想線上轉帳，以便於即時轉款。</td>
+                  <td>PO / BA</td>
+                </tr>
+                <tr>
+                  <td>Level 3</td>
+                  <td><strong>Scenario</strong></td>
+                  <td>有哪些主要業務流程與分支？</td>
+                  <td>轉帳金額超過單筆限額，轉帳失敗</td>
+                  <td>SA / BA / QA</td>
+                </tr>
+                <tr>
+                  <td>Level 4</td>
+                  <td><strong>Test Case</strong></td>
+                  <td>有哪些具體的輸入極端值與防呆？</td>
+                  <td>轉帳金額大於單筆限額 (輸入 $60,000)</td>
+                  <td>QA / 測試分析</td>
+                </tr>
+                <tr>
+                  <td>Level 5</td>
+                  <td><strong>GWT</strong></td>
+                  <td>系統的精確行為與預期輸出為何？</td>
+                  <td>Given [可用餘額與限額] When [轉帳$60,000] Then [提示超過限額]</td>
+                  <td>BA / QA / Dev</td>
+                </tr>
+                <tr>
+                  <td>Level 6</td>
+                  <td><strong>Playwright Code</strong></td>
+                  <td>如何以程式碼自動驗證此規格？</td>
+                  <td><code>test('TC01-02', async ({ page }) => { ... })</code></td>
+                  <td>Dev / QA 自動化</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt 0 Tab Panel (Voice Interview) -->
+      <section class="tab-panel" id="prompt0-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>階段 0：語音需求訪談助理</h2>
+            <p>使用此 Prompt 引導業務進行對話，AI 將自動防插話並整合為需求故事報告</p>
+          </div>
+        </div>
+        
+        <div class="workbench-split">
+          <!-- Left: Prompt Template Editor -->
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+              <div class="btn-group">
+                <button class="btn btn-secondary" id="copy-prompt0-btn">複製 Prompt</button>
+                <button class="btn btn-secondary" id="download-prompt0-btn">下載</button>
+                <button class="btn btn-danger" id="reset-prompt0-btn">重設</button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea" id="prompt0-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+          
+          <!-- Right: AI Output Pasting & Preview -->
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div class="toggle-tab-group">
+                <button class="toggle-tab active" id="toggle-prompt0-edit-btn">貼上產出</button>
+                <button class="toggle-tab" id="toggle-prompt0-preview-btn">預覽報告</button>
+              </div>
+              <button class="btn btn-primary" id="download-prompt0-output-btn">下載報告</button>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea active" id="prompt0-input" placeholder="貼上 AI 訪談結束產出的彙整報告 Markdown 內容..." spellcheck="false"></textarea>
+              <div class="preview-pane markdown-body" id="prompt0-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt 1 Tab Panel (Feature / Story Alignment) -->
+      <section class="tab-panel" id="prompt1-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>階段 1：功能對齊與 User Story 細拆</h2>
+            <p>將訪談結果對齊系統既有 Feature，細切出 User Stories 與 Scenario 情境樹</p>
+          </div>
+        </div>
+        
+        <div class="workbench-split">
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+              <div class="btn-group">
+                <button class="btn btn-secondary" id="copy-prompt1-btn">複製 Prompt</button>
+                <button class="btn btn-secondary" id="download-prompt1-btn">下載</button>
+                <button class="btn btn-danger" id="reset-prompt1-btn">重設</button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea" id="prompt1-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+          
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div class="toggle-tab-group">
+                <button class="toggle-tab active" id="toggle-prompt1-edit-btn">貼上產出</button>
+                <button class="toggle-tab" id="toggle-prompt1-preview-btn">預覽報告</button>
+              </div>
+              <button class="btn btn-primary" id="download-prompt1-output-btn">下載報告</button>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea active" id="prompt1-input" placeholder="貼上 Prompt 1 產出的 HTML/Markdown 功能對齊與故事細拆結果..." spellcheck="false"></textarea>
+              <div class="preview-pane markdown-body" id="prompt1-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt 2 Tab Panel (Scenario to Test Cases) -->
+      <section class="tab-panel" id="prompt2-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>階段 2：從 Scenario 產生 Test Case 清單</h2>
+            <p>為 Scenario 窮舉正常、異常與邊界測試條件，輸出具備完整 ID 追蹤鏈結的清單</p>
+          </div>
+        </div>
+        
+        <div class="workbench-split">
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+              <div class="btn-group">
+                <button class="btn btn-secondary" id="copy-prompt2-btn">複製 Prompt</button>
+                <button class="btn btn-secondary" id="download-prompt2-btn">下載</button>
+                <button class="btn btn-danger" id="reset-prompt2-btn">重設</button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea" id="prompt2-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+          
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div class="toggle-tab-group">
+                <button class="toggle-tab active" id="toggle-prompt2-edit-btn">貼上產出</button>
+                <button class="toggle-tab" id="toggle-prompt2-preview-btn">預覽報告</button>
+              </div>
+              <button class="btn btn-primary" id="download-prompt2-output-btn">下載報告</button>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea active" id="prompt2-input" placeholder="貼上 Prompt 2 產出的 HTML/Markdown 測試案例清單結果..." spellcheck="false"></textarea>
+              <div class="preview-pane markdown-body" id="prompt2-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt 3 Tab Panel (Test Cases to GWT) -->
+      <section class="tab-panel" id="prompt3-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>階段 3：GWT 規格與決策表</h2>
+            <p>編寫標準 Given-When-Then 情境步驟與跨畫面欄位規則，產出精確的行為規範表格</p>
+          </div>
+        </div>
+        
+        <div class="workbench-split">
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+              <div class="btn-group">
+                <button class="btn btn-secondary" id="copy-prompt3-btn">複製 Prompt</button>
+                <button class="btn btn-secondary" id="download-prompt3-btn">下載</button>
+                <button class="btn btn-danger" id="reset-prompt3-btn">重設</button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea" id="prompt3-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+          
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div class="toggle-tab-group">
+                <button class="toggle-tab active" id="toggle-prompt3-edit-btn">貼上產出</button>
+                <button class="toggle-tab" id="toggle-prompt3-preview-btn">預覽報告</button>
+              </div>
+              <button class="btn btn-primary" id="download-prompt3-output-btn">下載報告</button>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea active" id="prompt3-input" placeholder="貼上 Prompt 3 產出的 HTML/Markdown Given-When-Then 與結構化表格結果..." spellcheck="false"></textarea>
+              <div class="preview-pane markdown-body" id="prompt3-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt 4 Tab Panel (GWT to Playwright) -->
+      <section class="tab-panel" id="prompt4-tab">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>階段 4：Playwright 自動化測試代碼生成</h2>
+            <p>將階段三產出的 GWT 規格表格翻譯成可直接執行的 Playwright TypeScript 腳本</p>
+          </div>
+        </div>
+        
+        <div class="workbench-split">
+          <!-- Left: Prompt Template Editor -->
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+              <div class="btn-group">
+                <button class="btn btn-secondary" id="copy-prompt4-btn">複製 Prompt</button>
+                <button class="btn btn-secondary" id="download-prompt4-btn">下載</button>
+                <button class="btn btn-danger" id="reset-prompt4-btn">重設</button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea" id="prompt4-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+          
+          <!-- Right: AI Output Pasting & Preview -->
+          <div class="glass-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div class="toggle-tab-group">
+                <button class="toggle-tab active" id="toggle-prompt4-edit-btn">貼上代碼</button>
+                <button class="toggle-tab" id="toggle-prompt4-preview-btn">預覽代碼</button>
+              </div>
+              <button class="btn btn-primary" id="download-prompt4-output-btn">下載代碼</button>
+            </div>
+            <div class="editor-container">
+              <textarea class="prompt-textarea active" id="prompt4-input" placeholder="貼上 Prompt 4 產出的 Playwright TypeScript 測試代碼..." spellcheck="false"></textarea>
+              <div class="preview-pane markdown-body" id="prompt4-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-text">已成功複製！</span>
+  </div>
+
+  <!-- Third Party Libraries via CDN -->
+  <!-- Mermaid for flowchart rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    if (typeof mermaid !== 'undefined') {
+      try {
+        mermaid.initialize({ 
+          startOnLoad: false, 
+          theme: 'default',
+          securityLevel: 'loose',
+          flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+      } catch (e) {
+        console.error("Mermaid initialization failed:", e);
+      }
+    }
+  </script>
+  <!-- Marked for markdown to HTML compilation -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Local Data & App Logic -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
