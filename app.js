@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize UI elements
   initMenuToggle();
   initTabs();
+  initSubTabs();
   initTutorial();
   initPrompts();
   initOutputHandlers();
@@ -124,6 +125,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (overlay && overlay.classList.contains('active')) {
           overlay.classList.remove('active');
         }
+      });
+    });
+  }
+
+  // 1.5. Sub-tab (template/output) Switching inside Panels
+  function initSubTabs() {
+    const subtabs = document.querySelectorAll('.wb-tab');
+    subtabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const parentPanel = tab.closest('.tab-panel');
+        if (!parentPanel) return;
+
+        const targetView = tab.getAttribute('data-subtab');
+        
+        // Update sub-tab active state
+        parentPanel.querySelectorAll('.wb-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Show/hide sub-panel views
+        parentPanel.querySelectorAll('.wb-panel-view').forEach(view => {
+          view.classList.remove('active');
+          if (view.getAttribute('data-view') === targetView) {
+            view.classList.add('active');
+          }
+        });
       });
     });
   }

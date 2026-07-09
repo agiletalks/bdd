@@ -250,14 +250,66 @@ body {
   padding: 12px 24px 24px 24px;
 }
 
-/* Workbench Split Screen */
+/* Workbench Split Screen (Updated to support full-width tabbed layout) */
 .workbench-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   height: calc(100% - 50px);
   min-height: 0;
+}
+
+/* Sub-tab segmented control for Workbench Panels */
+.workbench-tabs {
+  display: flex;
+  gap: 4px;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+  width: fit-content;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+}
+
+.wb-tab {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition-speed);
+}
+
+.wb-tab:hover {
+  color: var(--text-main);
+}
+
+.wb-tab.active {
+  background-color: #ffffff;
+  color: var(--accent-cyan);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.workbench-content {
+  flex-grow: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wb-panel-view {
+  display: none;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.wb-panel-view.active {
+  display: flex;
 }
 
 /* Panel Header & Titles */

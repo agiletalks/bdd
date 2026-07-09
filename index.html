@@ -377,34 +377,43 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
           </div>
         </div>
         
+        <div class="workbench-tabs">
+          <button class="wb-tab active" data-subtab="template">1. 複製 Prompt 模板</button>
+          <button class="wb-tab" data-subtab="output">2. 貼上與預覽產出</button>
+        </div>
+
         <div class="workbench-split">
           <!-- Left: Prompt Template Editor -->
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
-              <div class="btn-group">
-                <button class="btn btn-secondary" id="copy-prompt0-btn">複製 Prompt</button>
-                <button class="btn btn-secondary" id="download-prompt0-btn">下載</button>
-                <button class="btn btn-danger" id="reset-prompt0-btn">重設</button>
+          <div class="wb-panel-view active" data-view="template">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+                <div class="btn-group">
+                  <button class="btn btn-secondary" id="copy-prompt0-btn">複製 Prompt</button>
+                  <button class="btn btn-secondary" id="download-prompt0-btn">下載</button>
+                  <button class="btn btn-danger" id="reset-prompt0-btn">重設</button>
+                </div>
               </div>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea" id="prompt0-textarea" spellcheck="false"></textarea>
+              <div class="editor-container">
+                <textarea class="prompt-textarea" id="prompt0-textarea" spellcheck="false"></textarea>
+              </div>
             </div>
           </div>
           
           <!-- Right: AI Output Pasting & Preview -->
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div class="toggle-tab-group">
-                <button class="toggle-tab active" id="toggle-prompt0-edit-btn">貼上產出</button>
-                <button class="toggle-tab" id="toggle-prompt0-preview-btn">預覽報告</button>
+          <div class="wb-panel-view" data-view="output">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div class="toggle-tab-group">
+                  <button class="toggle-tab active" id="toggle-prompt0-edit-btn">貼上產出</button>
+                  <button class="toggle-tab" id="toggle-prompt0-preview-btn">預覽報告</button>
+                </div>
+                <button class="btn btn-primary" id="download-prompt0-output-btn">下載報告</button>
               </div>
-              <button class="btn btn-primary" id="download-prompt0-output-btn">下載報告</button>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea active" id="prompt0-input" placeholder="貼上 AI 訪談結束產出的彙整報告 Markdown 內容..." spellcheck="false"></textarea>
-              <div class="preview-pane markdown-body" id="prompt0-preview"></div>
+              <div class="editor-container">
+                <textarea class="prompt-textarea active" id="prompt0-input" placeholder="貼上 AI 訪談結束產出的彙整報告 Markdown 內容..." spellcheck="false"></textarea>
+                <div class="preview-pane markdown-body" id="prompt0-preview"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -419,32 +428,41 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
           </div>
         </div>
         
+        <div class="workbench-tabs">
+          <button class="wb-tab active" data-subtab="template">1. 複製 Prompt 模板</button>
+          <button class="wb-tab" data-subtab="output">2. 貼上與預覽產出</button>
+        </div>
+
         <div class="workbench-split">
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
-              <div class="btn-group">
-                <button class="btn btn-secondary" id="copy-prompt1-btn">複製 Prompt</button>
-                <button class="btn btn-secondary" id="download-prompt1-btn">下載</button>
-                <button class="btn btn-danger" id="reset-prompt1-btn">重設</button>
+          <div class="wb-panel-view active" data-view="template">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+                <div class="btn-group">
+                  <button class="btn btn-secondary" id="copy-prompt1-btn">複製 Prompt</button>
+                  <button class="btn btn-secondary" id="download-prompt1-btn">下載</button>
+                  <button class="btn btn-danger" id="reset-prompt1-btn">重設</button>
+                </div>
               </div>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea" id="prompt1-textarea" spellcheck="false"></textarea>
+              <div class="editor-container">
+                <textarea class="prompt-textarea" id="prompt1-textarea" spellcheck="false"></textarea>
+              </div>
             </div>
           </div>
           
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div class="toggle-tab-group">
-                <button class="toggle-tab active" id="toggle-prompt1-edit-btn">貼上產出</button>
-                <button class="toggle-tab" id="toggle-prompt1-preview-btn">預覽報告</button>
+          <div class="wb-panel-view" data-view="output">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div class="toggle-tab-group">
+                  <button class="toggle-tab active" id="toggle-prompt1-edit-btn">貼上產出</button>
+                  <button class="toggle-tab" id="toggle-prompt1-preview-btn">預覽報告</button>
+                </div>
+                <button class="btn btn-primary" id="download-prompt1-output-btn">下載報告</button>
               </div>
-              <button class="btn btn-primary" id="download-prompt1-output-btn">下載報告</button>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea active" id="prompt1-input" placeholder="貼上 Prompt 1 產出的 HTML/Markdown 功能對齊與故事細拆結果..." spellcheck="false"></textarea>
-              <div class="preview-pane markdown-body" id="prompt1-preview"></div>
+              <div class="editor-container">
+                <textarea class="prompt-textarea active" id="prompt1-input" placeholder="貼上 Prompt 1 產出的 HTML/Markdown 功能對齊與故事細拆結果..." spellcheck="false"></textarea>
+                <div class="preview-pane markdown-body" id="prompt1-preview"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -459,32 +477,41 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
           </div>
         </div>
         
+        <div class="workbench-tabs">
+          <button class="wb-tab active" data-subtab="template">1. 複製 Prompt 模板</button>
+          <button class="wb-tab" data-subtab="output">2. 貼上與預覽產出</button>
+        </div>
+
         <div class="workbench-split">
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
-              <div class="btn-group">
-                <button class="btn btn-secondary" id="copy-prompt2-btn">複製 Prompt</button>
-                <button class="btn btn-secondary" id="download-prompt2-btn">下載</button>
-                <button class="btn btn-danger" id="reset-prompt2-btn">重設</button>
+          <div class="wb-panel-view active" data-view="template">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+                <div class="btn-group">
+                  <button class="btn btn-secondary" id="copy-prompt2-btn">複製 Prompt</button>
+                  <button class="btn btn-secondary" id="download-prompt2-btn">下載</button>
+                  <button class="btn btn-danger" id="reset-prompt2-btn">重設</button>
+                </div>
               </div>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea" id="prompt2-textarea" spellcheck="false"></textarea>
+              <div class="editor-container">
+                <textarea class="prompt-textarea" id="prompt2-textarea" spellcheck="false"></textarea>
+              </div>
             </div>
           </div>
           
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div class="toggle-tab-group">
-                <button class="toggle-tab active" id="toggle-prompt2-edit-btn">貼上產出</button>
-                <button class="toggle-tab" id="toggle-prompt2-preview-btn">預覽報告</button>
+          <div class="wb-panel-view" data-view="output">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div class="toggle-tab-group">
+                  <button class="toggle-tab active" id="toggle-prompt2-edit-btn">貼上產出</button>
+                  <button class="toggle-tab" id="toggle-prompt2-preview-btn">預覽報告</button>
+                </div>
+                <button class="btn btn-primary" id="download-prompt2-output-btn">下載報告</button>
               </div>
-              <button class="btn btn-primary" id="download-prompt2-output-btn">下載報告</button>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea active" id="prompt2-input" placeholder="貼上 Prompt 2 產出的 HTML/Markdown 測試案例清單結果..." spellcheck="false"></textarea>
-              <div class="preview-pane markdown-body" id="prompt2-preview"></div>
+              <div class="editor-container">
+                <textarea class="prompt-textarea active" id="prompt2-input" placeholder="貼上 Prompt 2 產出的 HTML/Markdown 測試案例清單結果..." spellcheck="false"></textarea>
+                <div class="preview-pane markdown-body" id="prompt2-preview"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -499,32 +526,41 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
           </div>
         </div>
         
+        <div class="workbench-tabs">
+          <button class="wb-tab active" data-subtab="template">1. 複製 Prompt 模板</button>
+          <button class="wb-tab" data-subtab="output">2. 貼上與預覽產出</button>
+        </div>
+
         <div class="workbench-split">
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
-              <div class="btn-group">
-                <button class="btn btn-secondary" id="copy-prompt3-btn">複製 Prompt</button>
-                <button class="btn btn-secondary" id="download-prompt3-btn">下載</button>
-                <button class="btn btn-danger" id="reset-prompt3-btn">重設</button>
+          <div class="wb-panel-view active" data-view="template">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+                <div class="btn-group">
+                  <button class="btn btn-secondary" id="copy-prompt3-btn">複製 Prompt</button>
+                  <button class="btn btn-secondary" id="download-prompt3-btn">下載</button>
+                  <button class="btn btn-danger" id="reset-prompt3-btn">重設</button>
+                </div>
               </div>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea" id="prompt3-textarea" spellcheck="false"></textarea>
+              <div class="editor-container">
+                <textarea class="prompt-textarea" id="prompt3-textarea" spellcheck="false"></textarea>
+              </div>
             </div>
           </div>
           
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div class="toggle-tab-group">
-                <button class="toggle-tab active" id="toggle-prompt3-edit-btn">貼上產出</button>
-                <button class="toggle-tab" id="toggle-prompt3-preview-btn">預覽報告</button>
+          <div class="wb-panel-view" data-view="output">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div class="toggle-tab-group">
+                  <button class="toggle-tab active" id="toggle-prompt3-edit-btn">貼上產出</button>
+                  <button class="toggle-tab" id="toggle-prompt3-preview-btn">預覽報告</button>
+                </div>
+                <button class="btn btn-primary" id="download-prompt3-output-btn">下載報告</button>
               </div>
-              <button class="btn btn-primary" id="download-prompt3-output-btn">下載報告</button>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea active" id="prompt3-input" placeholder="貼上 Prompt 3 產出的 HTML/Markdown Given-When-Then 與結構化表格結果..." spellcheck="false"></textarea>
-              <div class="preview-pane markdown-body" id="prompt3-preview"></div>
+              <div class="editor-container">
+                <textarea class="prompt-textarea active" id="prompt3-input" placeholder="貼上 Prompt 3 產出的 HTML/Markdown Given-When-Then 與結構化表格結果..." spellcheck="false"></textarea>
+                <div class="preview-pane markdown-body" id="prompt3-preview"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -539,34 +575,43 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
           </div>
         </div>
         
+        <div class="workbench-tabs">
+          <button class="wb-tab active" data-subtab="template">1. 複製 Prompt 模板</button>
+          <button class="wb-tab" data-subtab="output">2. 貼上與預覽產出</button>
+        </div>
+
         <div class="workbench-split">
           <!-- Left: Prompt Template Editor -->
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
-              <div class="btn-group">
-                <button class="btn btn-secondary" id="copy-prompt4-btn">複製 Prompt</button>
-                <button class="btn btn-secondary" id="download-prompt4-btn">下載</button>
-                <button class="btn btn-danger" id="reset-prompt4-btn">重設</button>
+          <div class="wb-panel-view active" data-view="template">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span style="font-size:12px; text-transform:uppercase; color:var(--text-muted); font-weight:600;">System Prompt 模板</span>
+                <div class="btn-group">
+                  <button class="btn btn-secondary" id="copy-prompt4-btn">複製 Prompt</button>
+                  <button class="btn btn-secondary" id="download-prompt4-btn">下載</button>
+                  <button class="btn btn-danger" id="reset-prompt4-btn">重設</button>
+                </div>
               </div>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea" id="prompt4-textarea" spellcheck="false"></textarea>
+              <div class="editor-container">
+                <textarea class="prompt-textarea" id="prompt4-textarea" spellcheck="false"></textarea>
+              </div>
             </div>
           </div>
           
           <!-- Right: AI Output Pasting & Preview -->
-          <div class="glass-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-              <div class="toggle-tab-group">
-                <button class="toggle-tab active" id="toggle-prompt4-edit-btn">貼上代碼</button>
-                <button class="toggle-tab" id="toggle-prompt4-preview-btn">預覽代碼</button>
+          <div class="wb-panel-view" data-view="output">
+            <div class="glass-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div class="toggle-tab-group">
+                  <button class="toggle-tab active" id="toggle-prompt4-edit-btn">貼上代碼</button>
+                  <button class="toggle-tab" id="toggle-prompt4-preview-btn">預覽代碼</button>
+                </div>
+                <button class="btn btn-primary" id="download-prompt4-output-btn">下載代碼</button>
               </div>
-              <button class="btn btn-primary" id="download-prompt4-output-btn">下載代碼</button>
-            </div>
-            <div class="editor-container">
-              <textarea class="prompt-textarea active" id="prompt4-input" placeholder="貼上 Prompt 4 產出的 Playwright TypeScript 測試代碼..." spellcheck="false"></textarea>
-              <div class="preview-pane markdown-body" id="prompt4-preview"></div>
+              <div class="editor-container">
+                <textarea class="prompt-textarea active" id="prompt4-input" placeholder="貼上 Prompt 4 產出的 Playwright TypeScript 測試代碼..." spellcheck="false"></textarea>
+                <div class="preview-pane markdown-body" id="prompt4-preview"></div>
+              </div>
             </div>
           </div>
         </div>
