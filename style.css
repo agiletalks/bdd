@@ -4,13 +4,13 @@
   --bg-sidebar: #ffffff;
   --bg-card: #ffffff;
   --border-color: #e2e8f0;
-  --border-focus: #0284c7;
+  --border-focus: #00873c;
   --text-main: #0f172a;
   --text-muted: #64748b;
   
-  --accent-cyan: #0284c7;
+  --accent-cyan: #00873c;
   --accent-purple: #7c3aed;
-  --accent-teal: #0d9488;
+  --accent-teal: #f39800;
   --accent-rose: #e11d48;
   
   --glass-bg: #f1f5f9;
@@ -95,7 +95,7 @@ body {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-teal));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -204,8 +204,8 @@ body {
 
 .nav-item.active {
   color: var(--accent-cyan);
-  background-color: #e0f2fe;
-  border-color: #bae6fd;
+  background-color: #e8f5e9;
+  border-color: #c8e6c9;
 }
 
 .sidebar-footer {
@@ -391,7 +391,7 @@ body {
 .prompt-textarea:focus {
   background-color: #ffffff;
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 135, 60, 0.1);
 }
 
 /* Button & Controls Styling */
@@ -418,12 +418,12 @@ body {
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-teal));
   color: #fff;
-  box-shadow: 0 2px 4px rgba(2, 132, 199, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 135, 60, 0.1);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 135, 60, 0.2);
 }
 
 .btn-secondary {
@@ -752,10 +752,10 @@ body {
 
 /* Border and BG variations */
 .border-cyan { border-left: 5px solid var(--accent-cyan); }
-.bg-cyan { background-color: #e0f2fe; color: var(--accent-cyan); }
+.bg-cyan { background-color: #e8f5e9; color: var(--accent-cyan); }
 
 .border-green { border-left: 5px solid var(--accent-teal); }
-.bg-green { background-color: #e0fdf4; color: var(--accent-teal); }
+.bg-green { background-color: #fff8e1; color: var(--accent-teal); }
 
 .border-orange { border-left: 5px solid #d97706; }
 .bg-orange { background-color: #fffbeb; color: #b45309; }
