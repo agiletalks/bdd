@@ -35,6 +35,9 @@
         <div class="nav-item active" data-tab="tutorial">
           <span>BDD 觀念教學</span>
         </div>
+        <div class="nav-item" data-tab="example">
+          <span>實戰案例示範</span>
+        </div>
         
         <div class="nav-section-title">BDD AI 協作工作區</div>
         
@@ -364,6 +367,241 @@ test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Example Tab Panel -->
+      <section class="tab-panel" id="example-tab">
+        <div class="tutorial-container" id="example-content">
+          <div class="panel-header">
+            <div class="panel-title">
+              <h2>BDD AI 協作全流程實戰範例</h2>
+              <p>以「線上非約定轉帳」為題，展示從業務需求到 Playwright E2E 自動化測試代碼的 6 步演進規格</p>
+            </div>
+          </div>
+
+          <div class="tutorial-intro">
+            <p>本範例展示一個原始的轉帳業務想法，如何通過五個階段逐步精煉為 100% 精準的自動化測試代碼：</p>
+          </div>
+
+          <div class="glass-card" style="margin-bottom: 24px;">
+            <h3 style="margin-bottom: 12px; font-size: 15px; font-weight: 600;">實戰案例演進關係圖</h3>
+            <div class="mermaid" style="text-align: center;">
+              graph TD
+                  Feature["1. Feature 功能特性<br>(線上非約定轉帳)"] 
+                  Feature -->|包含多個| US["2. User Story 使用者故事<br>(身為行動用戶，我想線上轉帳...)"]
+                  US -->|拆解出多個| Scenario["3. Scenario 業務情境<br>(轉帳金額超過單筆限額，轉帳失敗)"]
+                  Scenario -->|展開成多個| TC["4. Test Case 測試案例<br>(TC01-02 轉帳金額大於單筆上限)"]
+                  TC -->|撰寫成| GWT["5. Given-When-Then<br>(規格化前提、動作與斷言)"]
+                  GWT -->|自動翻譯為| Playwright["6. Playwright Code<br>(可執行的自動化測試腳本)"]
+                  
+                  style Feature fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+                  style US fill:#e0fdf4,stroke:#0d9488,stroke-width:2px
+                  style Scenario fill:#fffbeb,stroke:#d97706,stroke-width:2px
+                  style TC fill:#faf5ff,stroke:#7c3aed,stroke-width:2px
+                  style GWT fill:#fff1f2,stroke:#e11d48,stroke-width:2px
+                  style Playwright fill:#f1f5f9,stroke:#475569,stroke-width:2px
+            </div>
+          </div>
+
+          <div class="tutorial-steps">
+            <!-- Step 1 -->
+            <div class="t-step-card border-cyan">
+              <div class="t-step-num bg-cyan">1</div>
+              <div class="t-step-content">
+                <h3>步驟 1：語音需求訪談助理產出</h3>
+                <div class="t-step-meta">
+                  <span><strong>成果階層：</strong>非結構化訪談摘要</span>
+                  <span><strong>產出角色：</strong>引導式 BA 角色 (Prompt 0)</span>
+                </div>
+                <p>AI 防插話並引導出業務目標、故事主線與核心限制，訪談結束後一鍵生成結構化摘要：</p>
+                <div class="t-step-example">
+                  <strong>Prompt 0 訪談結束彙整報告：</strong>
+                  <ul style="margin-top: 6px; padding-left: 18px; font-size: 13px;">
+                    <li><strong>訪談背景</strong>：提供行動銀行用戶快速線上轉帳功能，處理即時資金需求。</li>
+                    <li><strong>核心故事 (Golden Path)</strong>：用戶在轉帳頁面輸入收款帳號與轉帳金額，點擊送出，驗證成功後直接完成扣款與轉帳。</li>
+                    <li><strong>業務規則與例外防呆</strong>：
+                      <ul>
+                        <li>單筆轉帳上限為新台幣 $50,000 元。</li>
+                        <li>若轉帳金額大於單筆上限（$50,000），阻擋送出並顯示提示。</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="t-step-card border-green">
+              <div class="t-step-num bg-green">2</div>
+              <div class="t-step-content">
+                <h3>步驟 2：功能故事對齊與場景切分</h3>
+                <div class="t-step-meta">
+                  <span><strong>成果階層：</strong>Feature & User Stories 對照表 / Scenario Tree</span>
+                  <span><strong>產出角色：</strong>資深 SA/BA 角色 (Prompt 1)</span>
+                </div>
+                <p>分析訪談內容並對齊系統 Feature，切分出明確的 User Story 並展開成端到端的業務流程路徑 (Scenario)：</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>故事與場景切分結果：</strong>
+                  <table class="tutorial-table" style="margin-top: 6px; font-size: 12.5px;">
+                    <thead>
+                      <tr>
+                        <th>User Story ID & 描述</th>
+                        <th>Scenario ID & 名稱</th>
+                        <th>情境流程說明</th>
+                        <th>情境類型</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>US01</strong><br>身為行動銀行用戶，我想線上非約定轉帳，以便於即時處理資金需求。</td>
+                        <td><strong>S01_正常轉帳</strong></td>
+                        <td>帳戶餘額充足，轉帳金額在限額內，扣款成功並完成轉帳。</td>
+                        <td>正常流程</td>
+                      </tr>
+                      <tr>
+                        <td><strong>US01</strong><br>(同上)</td>
+                        <td><strong>S02_超過單筆限額</strong></td>
+                        <td>轉帳金額大於 $50,000 單筆上限，系統阻擋交易並顯示提示。</td>
+                        <td>例外流程</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="t-step-card border-orange">
+              <div class="t-step-num bg-orange">3</div>
+              <div class="t-step-content">
+                <h3>步驟 3：測試條件展開 (Test Cases)</h3>
+                <div class="t-step-meta">
+                  <span><strong>成果階層：</strong>E2E / 邊界 / 防呆測試案例清單</span>
+                  <span><strong>產出角色：</strong>資深 QA 角色 (Prompt 2)</span>
+                </div>
+                <p>窮舉情境下的具體測試案例，建立完整的 Feature / Story ID 追蹤鏈結：</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>表格化測試案例（以 S02 限額情境為例）：</strong>
+                  <table class="tutorial-table" style="margin-top: 6px; font-size: 12.5px;">
+                    <thead>
+                      <tr>
+                        <th>Scenario ID</th>
+                        <th>Test Case ID</th>
+                        <th>Test Case 名稱</th>
+                        <th>測試目的 / 輸入條件</th>
+                        <th>測試類型</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>S02 (超過限額)</td>
+                        <td><strong>TC01-01</strong></td>
+                        <td>轉帳金額剛好等於單筆上限</td>
+                        <td>輸入金額 $50,000 元，驗證臨界點是否可以正常交易。</td>
+                        <td>邊界測試</td>
+                      </tr>
+                      <tr>
+                        <td>S02 (超過限額)</td>
+                        <td><strong>TC01-02</strong></td>
+                        <td>轉帳金額大於單筆上限</td>
+                        <td>輸入金額 $50,001 元，驗證系統是否正確拦截阻擋。</td>
+                        <td>例外攔截</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="t-step-card border-purple">
+              <div class="t-step-num bg-purple">4</div>
+              <div class="t-step-content">
+                <h3>步驟 4：Given-When-Then 行為規格表格</h3>
+                <div class="t-step-meta">
+                  <span><strong>成果階層：</strong>Given-When-Then 結構化行為規格</span>
+                  <span><strong>產出角色：</strong>BDD 專家角色 (Prompt 3)</span>
+                </div>
+                <p>將測試條件步驟化，拆解成前提條件、觸發動作與預期結果，形成無歧義規格：</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>結構化 GWT 規格表格（對應案例 TC01-02）：</strong>
+                  <table class="tutorial-table" style="margin-top: 6px; font-size: 12.5px;">
+                    <thead>
+                      <tr>
+                        <th>對應案例</th>
+                        <th>Given 前提條件</th>
+                        <th>When 觸發動作</th>
+                        <th>Then 預期結果</th>
+                        <th>Expected Value 預期欄位值</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>TC01-02</strong><br>(轉帳大於限額)</td>
+                        <td>
+                          1. 用戶登入帳戶成功<br>
+                          2. 帳戶可用餘額有 $100,000 元<br>
+                          3. 系統單筆上限為 $50,000 元
+                        </td>
+                        <td>
+                          1. 轉帳金額輸入欄位填入 <code>60000</code><br>
+                          2. 點擊「確認送出轉帳」按鈕
+                        </td>
+                        <td>
+                          1. 系統阻擋該筆交易送出<br>
+                          2. 頁面停留不進行跳轉<br>
+                          3. 轉帳金額欄位下方顯示錯誤提示
+                        </td>
+                        <td>
+                          錯誤提示文字：<br>
+                          <code>轉帳金額已超過單筆限額 $50,000 元</code>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="t-step-card border-slate">
+              <div class="t-step-num bg-slate">5</div>
+              <div class="t-step-content">
+                <h3>步驟 5：Playwright E2E 自動化測試代碼</h3>
+                <div class="t-step-meta">
+                  <span><strong>成果階層：</strong>可執行測試腳本 (.spec.ts)</span>
+                  <span><strong>產出角色：</strong>自動化 QA 工程師角色 (Prompt 4)</span>
+                </div>
+                <p>AI 讀取 GWT 規格表格，直接翻譯為可執行的 Playwright TypeScript 代碼，打通開發與測試閉環：</p>
+                <div class="t-step-example" style="overflow-x: auto;">
+                  <strong>Playwright 代碼產出（對應上述 TC01-02 流程）：</strong>
+                  <pre style="background: #f8fafc; border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; font-family: 'Consolas', monospace; font-size: 12px; margin-top: 8px; color: #334155; line-height: 1.5; text-align: left;">
+import { test, expect } from '@playwright/test';
+
+test.describe('行動銀行轉帳限額限制驗證', () => {
+
+  test('TC01-02 轉帳金額大於單筆限額應阻擋並報錯', async ({ page }) => {
+    // Given: 用戶登入帳戶成功，且可用餘額有 $100,000，單筆限額為 $50,000
+    await page.goto('/login');
+    await page.fill('#username', 'testuser123');
+    await page.click('#btn-login-submit');
+    
+    // When: 在轉帳金額輸入欄位填入 60000，並點選「確認轉帳」按鈕
+    await page.fill('#transfer-amount', '60000');
+    await page.click('#confirm-transfer-btn');
+    
+    // Then: 系統阻擋交易送出，頁面不進行跳轉，且轉帳金額欄位下方顯示錯誤提示
+    const errorAlert = page.locator('.error-message');
+    await expect(errorAlert).toBeVisible();
+    await expect(errorAlert).toHaveText('轉帳金額已超過單筆限額 $50,000 元');
+  });
+
+});</pre>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

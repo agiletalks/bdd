@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initSubTabs();
   initTutorial();
+  initExample();
   initPrompts();
   initOutputHandlers();
 
@@ -168,6 +169,18 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
           console.error("Static Mermaid render failed:", e);
         }
+      }
+    }
+  }
+
+  // 2.5. Render Example Mermaid Diagram
+  function initExample() {
+    const exampleContentEl = document.getElementById('example-content');
+    if (exampleContentEl && typeof mermaid !== 'undefined') {
+      try {
+        mermaid.init(undefined, exampleContentEl.querySelectorAll('.mermaid'));
+      } catch (e) {
+        console.error("Static Mermaid render failed in example:", e);
       }
     }
   }
