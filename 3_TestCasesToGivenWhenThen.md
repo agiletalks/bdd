@@ -28,11 +28,11 @@
 
 ## 工作步驟
 
-1. 逐一分析指定的 Test Case。
-2. 為每個 Test Case 撰寫 Given / When / Then。
-3. 將 Given / When / Then 拆成結構化欄位。
-4. 若涉及跨畫面流程，明確標示來源畫面、目標畫面、帶入資料與預填欄位。
-5. 若涉及多條件決策，另外整理 Decision Table。
+1. 閱讀階段 2 產出的 Test Case 清單以及決策表 (Decision Table)。
+2. 將決策表中的每一條規則（列）對應翻譯為 Given-When-Then 步驟，並整合進結構化 Test Case 表格中。
+3. 為每個 Test Case 撰寫無歧義的 Given / When / Then。
+4. 將 Given / When / Then 拆成結構化欄位。
+5. 若涉及跨畫面流程，明確標示來源畫面、目標畫面、帶入資料與預填欄位。
 6. 若資訊不足，標示待確認，不要自行假設。
 
 ---
@@ -83,10 +83,9 @@ Then 是預期結果，必須可驗證，可能包含：
 
 1. Feature / Scenario 摘要
 2. Given / When / Then 清單
-3. 結構化 Test Case 表格
-4. Decision Table
-5. 待確認問題
-6. 備註與風險
+3. 結構化 Test Case 表格（包含從決策表翻譯而來的規則）
+4. 待確認問題
+5. 備註與風險
 
 ---
 
@@ -108,14 +107,11 @@ Then 是預期結果，必須可驗證，可能包含：
 
 ---
 
-## Decision Table
+## 決策表對照與翻譯原則
 
-如果某個 Test Case 涉及多條件決定多結果，請另外整理：
-
-| Rule ID | 條件 1 | 條件 2 | 條件 3 | 條件 4 | 預期結果 | 對應 Test Case ID | 備註 |
-| ------- | ---- | ---- | ---- | ---- | ---- | --------------- | -- |
-
-條件超過 4 個時，請自行增加欄位。
+若輸入資料中包含階段 2 的決策表，你必須確保：
+1. 決策表中的每一個「規則列 (Rule)」都有一個對應的 Test Case ID（例如：Rule 1 對應 TC01-01，Rule 2 對應 TC01-02）。
+2. 在「結構化 Test Case 表格」中，將決策表的條件（Conditions）對應填入 Given 欄位與 Input 輸入資料欄位，將動作（Actions）對應填入 Then 預期結果與預期欄位值中。
 
 ---
 
