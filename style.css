@@ -60,7 +60,7 @@ body {
 
 /* Top Header Bar */
 .top-header {
-  height: 60px;
+  height: 50px;
   background-color: #ffffff;
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -233,7 +233,7 @@ body {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  padding: 20px 24px 24px 24px;
+  padding: 12px 24px 16px 24px;
 }
 
 .tab-panel.active {
@@ -247,7 +247,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 24px;
+  padding: 12px 24px 24px 24px;
 }
 
 /* Workbench Split Screen */
@@ -256,20 +256,25 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   flex-grow: 1;
-  height: calc(100% - 60px);
+  height: calc(100% - 50px);
   min-height: 0;
 }
 
 /* Panel Header & Titles */
 .panel-header {
-  height: 50px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   padding-bottom: 6px;
   flex-shrink: 0;
+}
+
+.tutorial-container .panel-header {
+  height: auto;
+  margin-bottom: 16px;
 }
 
 .panel-title {
